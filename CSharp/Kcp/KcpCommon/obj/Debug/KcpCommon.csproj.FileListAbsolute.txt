@@ -1,0 +1,6 @@
+I:\github\KcpTest\CSharp\Kcp\KcpCommon\bin\Debug\KcpCommon.dll
+I:\github\KcpTest\CSharp\Kcp\KcpCommon\bin\Debug\KcpCommon.pdb
+I:\github\KcpTest\CSharp\Kcp\KcpCommon\obj\Debug\KcpCommon.csprojAssemblyReference.cache
+I:\github\KcpTest\CSharp\Kcp\KcpCommon\obj\Debug\KcpCommon.csproj.CoreCompileInputs.cache
+I:\github\KcpTest\CSharp\Kcp\KcpCommon\obj\Debug\KcpCommon.dll
+I:\github\KcpTest\CSharp\Kcp\KcpCommon\obj\Debug\KcpCommon.pdb

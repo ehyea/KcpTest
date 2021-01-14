@@ -1,0 +1,10 @@
+I:\github\KcpTest\CSharp\Kcp\KcpClient\bin\Debug\KcpClient.exe.config
+I:\github\KcpTest\CSharp\Kcp\KcpClient\bin\Debug\KcpClient.exe
+I:\github\KcpTest\CSharp\Kcp\KcpClient\bin\Debug\KcpClient.pdb
+I:\github\KcpTest\CSharp\Kcp\KcpClient\bin\Debug\KcpCommon.dll
+I:\github\KcpTest\CSharp\Kcp\KcpClient\bin\Debug\KcpCommon.pdb
+I:\github\KcpTest\CSharp\Kcp\KcpClient\obj\Debug\KcpClient.csprojAssemblyReference.cache
+I:\github\KcpTest\CSharp\Kcp\KcpClient\obj\Debug\KcpClient.csproj.CoreCompileInputs.cache
+I:\github\KcpTest\CSharp\Kcp\KcpClient\obj\Debug\KcpClient.csproj.CopyComplete
+I:\github\KcpTest\CSharp\Kcp\KcpClient\obj\Debug\KcpClient.exe
+I:\github\KcpTest\CSharp\Kcp\KcpClient\obj\Debug\KcpClient.pdb
