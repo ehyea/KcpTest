@@ -673,10 +673,12 @@ namespace Core.Socket.KCPSupport
 			int errorCode = 0;
 			if (fec != null && fec.isEnabled())
 			{
-				FEC.fecPacket fecPacket = FEC.Decode(data, data.Length);
-				if (fecPacket.flag == FEC.typeData)
+                // decode FEC packet
+                FEC.fecPacket pkt = FEC.Decode(data, data.Length);
+				if (pkt.flag == FEC.typeData)
 				{
-					List<byte> newData = new List<byte>(fecPacket.data);
+                    List<byte> newData = new List<byte>(pkt.data);
+                    // we have 2B size, ignore for typeData
                     newData.RemoveRange(0, 2);
                     errorCode = doInput(newData.ToArray(), ackNoDelay);
 					if (errorCode != 0)
@@ -684,22 +686,29 @@ namespace Core.Socket.KCPSupport
                         errorCount++;
 					}
 				}
-				if (fecPacket.flag == FEC.typeData || fecPacket.flag == FEC.typeFEC)
+                // allow FEC packet processing with correct flags.
+                if (pkt.flag == FEC.typeData || pkt.flag == FEC.typeFEC)
 				{
 					try
 					{
-						List<List<byte>> recovered = fec.Input(fecPacket);
-						for (int i = 0; i < recovered.Count; i++)
+                        // input to FEC, and see if we can recover data.
+                        List<List<byte>> recovered = fec.Input(pkt);
+                        // we have some data recovered.
+                        for (int i = 0; i < recovered.Count; i++)
 						{
 							List<byte> recoveredData = recovered[i];
-							if (recoveredData.Count > 2)
+                            // recovered data has at least 2B size.
+                            if (recoveredData.Count > 2)
 							{
 								byte[] p = recoveredData.ToArray();
-								ushort c = 0;
-								ikcp_decode16u(p, 0, ref c);
-								if (c >= 2 && c <= recoveredData.Count)
+                                // decode packet size, which is also recovered.
+                                ushort sz = 0;
+                                ikcp_decode16u(p, 0, ref sz);
+                                // the recovered packet size must be in the correct range.
+                                if (sz >= 2 && sz <= recoveredData.Count)
 								{
-                                    recoveredData.RemoveRange(c, recoveredData.Count - c);
+                                    // input proper data to kcp
+                                    recoveredData.RemoveRange(sz, recoveredData.Count - sz);
                                     recoveredData.RemoveRange(0, 2);
                                     errorCode = doInput(recoveredData.ToArray(), ackNoDelay);
 									if (errorCode == 0)
@@ -731,6 +740,7 @@ namespace Core.Socket.KCPSupport
 			}
 			else
 			{
+                // fec disabled
                 errorCode = doInput(data, ackNoDelay);
 				if (errorCode != 0)
 				{
